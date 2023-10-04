@@ -22,3 +22,5 @@ fetchBreeds().then(data => {
     select: select,
   });
 });
+
+fetchCatByBreed().then(data => console.log(data));
