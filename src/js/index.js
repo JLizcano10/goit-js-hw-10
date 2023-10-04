@@ -9,10 +9,10 @@ const catInfo = document.querySelector('div.cat-info');
 
 select.style.display = 'none';
 errorMessage.style.display = 'none';
-loader.style.display = 'none';
 
 fetchBreeds()
   .then(data => {
+    showLoader();
     const optionSelect = data
       .map(object => `<option value="${object.id}">${object.name}</option>`)
       .join('');
@@ -24,13 +24,17 @@ fetchBreeds()
     new SlimSelect({
       select: select,
     });
+
+    hideLoader();
   })
   .catch(error => {
     Notiflix.Notify.failure(errorMessage.textContent);
+    hideLoader();
   });
 
 select.addEventListener('change', e => {
   const breedId = e.target.value;
+  showLoader();
 
   fetchCatByBreed(breedId)
     .then(data => {
@@ -41,6 +45,8 @@ select.addEventListener('change', e => {
       const catInfoChild = createCatInfo(url, name, description, temperament);
       catInfo.innerHTML = '';
       catInfo.innerHTML = catInfoChild;
+
+      hideLoader();
     })
     .catch(error => {
       Notiflix.Notify.failure(errorMessage.textContent);
@@ -54,4 +60,12 @@ function createCatInfo(url, name, description, temperament) {
         <p>${description}</p>
         <p><strong>Temperament: </strong>${temperament}</p>
       </div>`;
+}
+
+function showLoader() {
+  loader.style.display = 'block';
+}
+
+function hideLoader() {
+  loader.style.display = 'none';
 }
