@@ -54,6 +54,7 @@ select.addEventListener('change', e => {
     })
     .catch(error => {
       Notiflix.Notify.failure(errorMessage.textContent);
+      hideLoader();
     });
 });
 
