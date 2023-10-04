@@ -10,7 +10,6 @@ const catInfo = document.querySelector('div.cat-info');
 select.style.display = 'none';
 
 fetchBreeds().then(data => {
-  console.log(data);
   const optionSelect = data
     .map(object => `<option value="${object.id}">${object.name}</option>`)
     .join('');
