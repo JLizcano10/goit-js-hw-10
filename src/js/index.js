@@ -2,11 +2,15 @@ import { fetchBreeds, fetchCatByBreed } from './cat-api.js';
 import SlimSelect from 'slim-select';
 import 'slim-select/dist/slimselect.css';
 import Notiflix from 'notiflix';
+Notiflix.Notify.init({
+  width: '500px',
+  position: 'center-top',
+});
+
 const select = document.querySelector('select.breed-select');
 const loader = document.querySelector('p.loader');
 const errorMessage = document.querySelector('p.error');
 const catInfo = document.querySelector('div.cat-info');
-
 select.style.display = 'none';
 errorMessage.style.display = 'none';
 
