@@ -63,6 +63,7 @@ select.addEventListener('change', e => {
 // *Consejo inicializacion para no tener codigo desordenado
 function initializeElements() {
   select.style.display = 'none';
+  select.style.width = '450px';
   loader.style.display = 'flex';
   errorMessage.style.display = 'none';
   catInfo.style.display = 'none';
