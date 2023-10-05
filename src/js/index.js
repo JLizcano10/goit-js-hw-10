@@ -11,7 +11,8 @@ const select = document.querySelector('select.breed-select');
 const loader = document.querySelector('p.loader');
 const errorMessage = document.querySelector('p.error');
 const catInfo = document.querySelector('div.cat-info');
-select.style.display = 'none';
+hideSelect();
+loader.textContent = '';
 errorMessage.style.display = 'none';
 
 fetchBreeds()
@@ -22,7 +23,7 @@ fetchBreeds()
       .join('');
     select.insertAdjacentHTML('beforeend', optionSelect);
 
-    select.style.display = 'flex';
+    showSelect();
 
     // Recordar que debo cargarlo aqui porque si lo pongo afuera no coge los valores de la promesa (asicronia)
     new SlimSelect({
@@ -39,7 +40,7 @@ fetchBreeds()
 select.addEventListener('change', e => {
   const breedId = e.target.value;
   showLoader();
-
+  hideCatInfo();
   fetchCatByBreed(breedId)
     .then(data => {
       const { breeds, url } = data[0];
@@ -51,6 +52,7 @@ select.addEventListener('change', e => {
       catInfo.innerHTML = catInfoChild;
 
       hideLoader();
+      showCatInfo();
     })
     .catch(error => {
       Notiflix.Notify.failure(errorMessage.textContent);
@@ -59,8 +61,8 @@ select.addEventListener('change', e => {
 });
 
 function createCatInfo(url, name, description, temperament) {
-  return `<img src="${url}" alt="${name}" width="400" height="300" />
-      <div>
+  return `<img src="${url}" alt="${name}" width="450" height="320" />
+      <div class= "text-info" >
         <h1>${name}</h1>
         <p>${description}</p>
         <p><strong>Temperament: </strong>${temperament}</p>
@@ -73,4 +75,20 @@ function showLoader() {
 
 function hideLoader() {
   loader.style.display = 'none';
+}
+
+function showSelect() {
+  select.style.display = 'flex';
+}
+
+function hideSelect() {
+  select.style.display = 'none';
+}
+
+function showCatInfo() {
+  catInfo.style.display = 'flex';
+}
+
+function hideCatInfo() {
+  catInfo.style.display = 'none';
 }
