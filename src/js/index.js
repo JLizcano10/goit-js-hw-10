@@ -11,9 +11,9 @@ const select = document.querySelector('select.breed-select');
 const loader = document.querySelector('p.loader');
 const errorMessage = document.querySelector('p.error');
 const catInfo = document.querySelector('div.cat-info');
-hideSelect();
-loader.textContent = '';
-errorMessage.style.display = 'none';
+
+// *Consejo inicializacion para no tener codigo desordenado
+initializeElements();
 
 fetchBreeds()
   .then(data => {
@@ -59,6 +59,16 @@ select.addEventListener('change', e => {
       hideLoader();
     });
 });
+
+// *Consejo inicializacion para no tener codigo desordenado
+function initializeElements() {
+  select.style.display = 'none';
+  loader.style.display = 'flex';
+  errorMessage.style.display = 'none';
+  catInfo.style.display = 'none';
+  loader.textContent = '';
+  errorMessage.style.display = 'none';
+}
 
 function createCatInfo(url, name, description, temperament) {
   return `<img src="${url}" alt="${name}" width="450" height="320" />
